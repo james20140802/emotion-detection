@@ -20,7 +20,7 @@ def test_clean_text():
     """
     examples = pd.Series(
         [
-            "@tiffanylue i know  i was listenin to bad habit earlier and i started freakin at his part =[",
+            "@tif i know i was listenin to bad habit earlier and started freakin at his part =[",
             "worry,Hmmm. http://www.djhero.com/ is down",
             "Choked on her retainers",
         ]
