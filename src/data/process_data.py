@@ -53,12 +53,12 @@ def dynamic_load() -> Union[pd.DataFrame, int]:
 
         try:
             text_df = load_module.load()
-            assert type(text_df) == pd.Series, "invalid type"
+            assert isinstance(text_df, pd.Series), "invalid type"
 
             text_df_list.append(text_df)
         except AssertionError:
             return 0
-        except:
+        except AttributeError:
             return -1
 
     result = pd.concat(text_df_list, ignore_index=True)
