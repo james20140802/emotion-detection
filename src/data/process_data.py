@@ -3,6 +3,7 @@
 """
 
 import os
+import re
 import importlib.util
 from typing import Union
 
@@ -66,3 +67,27 @@ def dynamic_load() -> Union[pd.DataFrame, int]:
     result.dropna(inplace=True)
 
     return result
+
+
+def clean_text(text_series: pd.Series) -> pd.Series:
+    """
+    text data 속 url, hashtag 등 필요 없는 부분을 지움.
+
+    Args:
+        text_Series (pd.Series): input text data.
+
+    Returns:
+        pd.Series: cleaned text data.
+    """
+    text_series = text_series.apply(lambda x: x.lower())  # Lowercase
+
+    text_series = text_series.apply(
+        lambda x: re.sub(r"(?:\@|#|http?\://|https?\://|www)\S+", "", x)
+    )  # URL, hashtag, mention 삭제
+
+    text_series = text_series.apply(lambda x: re.sub(r"\W*\b\w{1}\b", "", x))  # 한 글자 단어 삭제
+
+    text_series = text_series.apply(lambda x: re.sub("([.,!?()])", r" \1 ", x))
+    text_series = text_series.apply(lambda x: re.sub(r"\s{2,}", " ", x))  # 구두점은 단어와 분리
+
+    return text_series
