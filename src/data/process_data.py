@@ -130,9 +130,13 @@ def save_processed_data():
     raw_text_series = dynamic_load()
     if isinstance(raw_text_series, pd.Series):
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        save_path = os.path.join(
-            current_dir, "../../data/processed", "processed_data.pkl"
-        )
+
+        save_dir = os.path.join(current_dir, "../../data/processed")
+
+        if not os.path.isdir(save_dir):
+            os.mkdir(save_dir)
+
+        save_path = os.path.join(save_dir, "processed_data.pkl")
 
         raw_text_series.to_pickle(save_path)
 
