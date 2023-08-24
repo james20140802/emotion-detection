@@ -30,12 +30,12 @@ def get_load_files() -> list[str]:
     return load_files
 
 
-def dynamic_load() -> Union[pd.DataFrame, int]:
+def dynamic_load() -> Union[pd.Series, int]:
     """
     data 폴더 내에 있는 csv files들에서 text data를 pd.Series로 반환함.
 
     Returns:
-        Union[pd.DataFrame, int]
+        Union[pd.Series, int]
 
         pd.Series : 로드 결과물
 
