@@ -7,7 +7,9 @@ import sys
 
 import pandas as pd
 
-application_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../")
+application_path = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "../../"
+)
 sys.path.append(application_path)
 
 
