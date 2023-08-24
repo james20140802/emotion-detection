@@ -7,7 +7,7 @@ import os
 import pandas as pd
 
 
-def loada():
+def load():
     """
     data/raw 폴더 속 Text_Emotion/train.csv 의 text data를 로드함.
     """
