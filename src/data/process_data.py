@@ -121,3 +121,22 @@ def tokenize(text_series: pd.Series) -> pd.Series:
     text_series = text_series.apply(tokenizer.tokenize)
 
     return text_series
+
+
+def save_processed_data():
+    """
+    csv 파일들에서 text data를 불러오고 데이터를 전처리한 뒤 pickle 형태로 저장.
+    """
+    raw_text_series = dynamic_load()
+    if isinstance(raw_text_series, pd.Series):
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        save_path = os.path.join(
+            current_dir, "../../data/processed", "processed_data.pkl"
+        )
+
+        raw_text_series.to_pickle(save_path)
+
+    elif raw_text_series == 0:
+        raise TypeError("Inappropriate load data format")
+    elif raw_text_series == -1:
+        raise AttributeError("Cannot find 'load' function in load file")
