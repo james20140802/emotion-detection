@@ -8,6 +8,8 @@ import importlib.util
 from typing import Union
 
 import pandas as pd
+import nltk
+from nltk.tokenize import TreebankWordTokenizer
 
 
 def get_load_files() -> list[str]:
@@ -89,5 +91,23 @@ def clean_text(text_series: pd.Series) -> pd.Series:
 
     text_series = text_series.apply(lambda x: re.sub("([.,!?()])", r" \1 ", x))
     text_series = text_series.apply(lambda x: re.sub(r"\s{2,}", " ", x))  # 구두점은 단어와 분리
+
+    return text_series
+
+
+def tokenize(text_series: pd.Series) -> pd.Series:
+    """
+    Tokenize text data.
+
+    Args:
+        text_series (pd.Series): input text data.
+
+    Returns:
+        pd.Series: tokenized text data.
+    """
+    nltk.download("treebank")
+
+    tokenizer = TreebankWordTokenizer()
+    text_series = text_series.apply(tokenizer.tokenize)
 
     return text_series
