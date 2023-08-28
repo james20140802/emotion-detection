@@ -88,13 +88,19 @@ def clean_text(text_series: pd.Series) -> pd.Series:
     )  # URL, hashtag, mention 삭제
 
     text_series = text_series.apply(
-        lambda x: re.sub("<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});", "", x)
+        lambda x: re.sub(
+            "<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});", "", x
+        )
     )  # HTML 태그(<div></div> 혹은 &nsbm 등) 제거
 
-    text_series = text_series.apply(lambda x: re.sub(r"\W*\b\w{1}\b", "", x))  # 한 글자 단어 삭제
+    text_series = text_series.apply(
+        lambda x: re.sub(r"\W*\b\w{1}\b", "", x)
+    )  # 한 글자 단어 삭제
 
     text_series = text_series.apply(lambda x: re.sub("([.,!?()])", r" \1 ", x))
-    text_series = text_series.apply(lambda x: re.sub(r"\s{2,}", " ", x))  # 구두점은 단어와 분리
+    text_series = text_series.apply(
+        lambda x: re.sub(r"\s{2,}", " ", x)
+    )  # 구두점은 단어와 분리
 
     return text_series
 
