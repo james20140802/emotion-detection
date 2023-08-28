@@ -138,7 +138,9 @@ def save_processed_data():
 
         save_path = os.path.join(save_dir, "processed_data.pkl")
 
-        raw_text_series.to_pickle(save_path)
+        processed_text_series = tokenize(clean_text(raw_text_series))
+
+        processed_text_series.to_pickle(save_path)
 
     elif raw_text_series == 0:
         raise TypeError("Inappropriate load data format")
